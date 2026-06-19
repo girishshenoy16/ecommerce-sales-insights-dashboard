@@ -1,0 +1,15 @@
+# AI Image Generator Prompt: Professional Executive Dashboard Mockup
+
+Use the following detailed prompt in Midjourney, DALL-E 3, Stable Diffusion, or any AI image generator to create a realistic, premium dashboard mockup image for your GitHub repository cover, social posts, or portfolio page.
+
+---
+
+### In-Depth Prompt Text:
+> Professional enterprise Power BI style executive sales insights dashboard, C-level corporate business intelligence report UI mockup. Deep slate navy background theme with vibrant neon-blue and emerald-green highlights. The top header shows 5 clean rectangular KPI summary cards displaying numbers like "Total Sales $62.2M", "Net Profit $12.3M", "Profit Margin 19.8%", "Total Orders 105K", "AOV $592". The middle layout contains a double-axis line chart showing revenue trends and a modern ring donut chart for category sales distribution. The bottom section displays clean structured tables showing top products and key customer account details. Collapsible dark sidebar on the left showing slicers and filter controls. Flat vector style, clean corporate grid layout, sharp borders, premium sans-serif typography, highly readable charts with smooth animations, high-fidelity UI design, 8k resolution, aspect ratio 16:9, no laptop frames, no device mockups, just the UI itself.
+
+---
+
+### Tips for Best Results:
+1. **Aspect Ratio**: If using Midjourney, add `--ar 16:9` at the end.
+2. **Style**: Add `--style raw` or specify "user interface screenshot" to avoid artistic clutter.
+3. **Logo**: If the generator creates gibberish text in the logo area, crop the image slightly or use an editor to overlay your own logo!

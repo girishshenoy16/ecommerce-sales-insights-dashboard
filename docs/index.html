@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Commerce Sales Insights — EcomQ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="spinner-container">
+            <div class="spinner"></div>
+            <p>Loading Executive Sales Insights...</p>
+        </div>
+    </div>
+
+    <!-- Error Fallback Overlay -->
+    <div id="errorOverlay" class="error-overlay hidden">
+        <div class="error-container">
+            <i class="fa-solid fa-triangle-exclamation error-icon"></i>
+            <h2>Unable to load dashboard data</h2>
+            <p>Please check your connection or refresh the page.</p>
+            <button id="retryBtn" class="retry-btn">
+                <i class="fa-solid fa-rotate"></i> Retry Connection
+            </button>
+        </div>
+    </div>
+
+    <header class="topbar">
+      <div class="brand">
+          <span class="brand-mark">E</span>
+        <div class="brand-text">
+          <h1>E-Commerce Sales Insights</h1>
+          <p>Prepared for Office of the CEO &amp; CFO — EcomQ</p>
+        </div>
+      </div>
+      <div class="asof" id="asOf"></div>
+    </header>
+
+    <section class="filter-panel" id="filterPanel">
+      <div class="filter-panel-header">
+        <div class="filter-panel-title">
+          <h2><i class="fa-solid fa-sliders"></i> Executive Control Panel</h2>
+          <p>Analyze performance across key business dimensions</p>
+        </div>
+
+        <div class="filter-panel-meta">
+          <span class="last-updated">Last Updated: Jun 2026</span>
+          <button id="resetFilters" class="reset-btn-premium"><i class="fa-solid fa-arrows-rotate"></i> Reset Filters</button>
+        </div>
+      </div>
+      
+      <nav class="filterbar-grid">
+        <div class="filter-group">
+          <label for="f-year"><i class="fa-solid fa-calendar-days"></i> Year</label>
+          <select id="f-year"><option value="all">All Years</option></select>
+        </div>
+
+        <div class="filter-group">
+          <label for="f-region"><i class="fa-solid fa-earth-americas"></i> Region</label>
+          <select id="f-region"><option value="all">All Regions</option></select>
+        </div>
+
+        <div class="filter-group">
+          <label for="f-category"><i class="fa-solid fa-box"></i> Category</label>
+          <select id="f-category"><option value="all">All Categories</option></select>
+        </div>
+
+        <div class="filter-group">
+          <label for="f-segment"><i class="fa-solid fa-users"></i> Segment</label>
+          <select id="f-segment"><option value="all">All Segments</option></select>
+        </div>
+
+        <div class="filter-group">
+          <label for="f-payment"><i class="fa-solid fa-credit-card"></i> Payment</label>
+          <select id="f-payment"><option value="all">All Methods</option></select>
+        </div>
+
+        <div class="filter-group">
+          <label for="f-shipping"><i class="fa-solid fa-truck"></i> Shipping</label>
+          <select id="f-shipping"><option value="all">All Modes</option></select>
+        </div>
+      </nav>
+
+      <!-- Active Filter Summary Row -->
+      <div class="filter-summary-row" id="activeFilterSummary">
+        <!-- populated dynamically by JS -->
+      </div>
+    </section>
+
+    <main class="dashboard">
+      <!-- SPRINT 1: Executive Alert Center -->
+      <div class="alert-center-wrapper">
+        <div class="alert-center" id="alertCenter"><!-- populated by JS --></div>
+      </div>
+
+      <section class="kpi-strip" id="kpiStrip">
+        <div class="kpi-card" data-kpi="sales">
+          <span class="kpi-label">Total Sales</span>
+          <span class="kpi-value" id="kpiSales">—</span>
+          <span class="kpi-delta" id="kpiSalesDelta"></span>
+        </div>
+
+        <div class="kpi-card" data-kpi="profit">
+          <span class="kpi-label">Total Profit</span>
+          <span class="kpi-value" id="kpiProfit">—</span>
+          <span class="kpi-delta" id="kpiProfitDelta"></span>
+        </div>
+
+        <div class="kpi-card" data-kpi="margin">
+          <span class="kpi-label">Profit Margin</span>
+          <span class="kpi-value" id="kpiMargin">—</span>
+          <span class="kpi-delta" id="kpiMarginDelta"></span>
+        </div>
+
+        <div class="kpi-card" data-kpi="aov">
+          <span class="kpi-label">Avg Order Value</span>
+          <span class="kpi-value" id="kpiAov">—</span>
+          <span class="kpi-delta" id="kpiAovDelta"></span>
+        </div>
+
+        <div class="kpi-card" data-kpi="orders">
+          <span class="kpi-label">Total Orders</span>
+          <span class="kpi-value" id="kpiOrders">—</span>
+          <span class="kpi-delta" id="kpiOrdersDelta"></span>
+        </div>
+
+        <div class="kpi-card" data-kpi="returns">
+          <span class="kpi-label">Return / Cancel Rate</span>
+          <span class="kpi-value" id="kpiReturns">—</span>
+          <span class="kpi-delta" id="kpiReturnsDelta"></span>
+        </div>
+      </section>
+
+      <!-- Executive Control Tower & CEO Executive Briefing -->
+      <section class="control-tower" id="controlTowerSection">
+        <!-- populated dynamically by JS -->
+      </section>
+
+      <!-- SPRINT 1: Executive Scorecard -->
+      <section class="phase2-section" id="scorecardSection">
+        <div class="s-head">
+          <h2>Executive Scorecard</h2>
+          <p>Boardroom performance vs targets — recalculates with filters</p>
+        </div>
+
+        <div id="scorecardContent"><!-- populated by JS --></div>
+      </section>
+
+      <!-- SPRINT 1: Root Cause Analysis Engine -->
+      <section class="phase2-section" id="rcaSection">
+        <div class="s-head">
+          <h2>Root Cause Analysis Engine</h2>
+          <p>Automated intelligence on KPI variance drivers</p>
+        </div>
+
+        <div class="rca-panel" id="rcaPanel"><!-- populated by JS --></div>
+      </section>
+
+      <!-- SPRINT 1: AI Executive Recommendations -->
+      <section class="phase2-section" id="recSection">
+        <div class="s-head">
+          <h2>AI Executive Recommendations</h2>
+          <p>Priority actions generated from current data context</p>
+        </div>
+
+        <div class="recommendation-grid" id="aiRecommendations"><!-- populated by JS --></div>
+      </section>
+
+      <section class="chart-grid">
+        <div class="chart-card span-2" data-chart="trend">
+          <div class="chart-head">
+            <h2>Sales &amp; Profit Trend</h2>
+            <p>Monthly, with year-over-year overlay</p>
+          </div>
+
+          <div class="chart-body"><canvas id="chartTrend"></canvas></div>
+        </div>
+
+        <div class="chart-card" data-chart="region">
+          <div class="chart-head">
+            <h2>Sales by Region</h2>
+            <p>Where revenue concentrates</p>
+          </div>
+
+          <div class="chart-body"><canvas id="chartRegion"></canvas></div>
+        </div>
+
+        <div class="chart-card" data-chart="state">
+          <div class="chart-head">
+            <h2>Top States by Sales</h2>
+            <p>Top 10 of 12 tracked states</p>
+          </div>
+
+          <div class="chart-body"><canvas id="chartState"></canvas></div>
+        </div>
+
+        <div class="chart-card" data-chart="category-margin">
+          <div class="chart-head">
+            <h2>Profit Margin % by Category</h2>
+            <p>Where margin is strongest and weakest</p>
+          </div>
+
+          <div class="chart-body"><canvas id="chartCategoryMargin"></canvas></div>
+        </div>
+
+        <div class="chart-card" data-chart="top-products">
+          <div class="chart-head">
+            <h2>Top 10 Products</h2>
+            <p>By total sales value</p>
+          </div>
+          <div class="chart-body"><canvas id="chartTopProducts"></canvas></div>
+        </div>
+
+        <div class="chart-card" data-chart="segment">
+          <div class="chart-head">
+            <h2>Customer Segment Mix</h2>
+            <p>Share of sales by buyer type</p>
+          </div>
+
+          <div class="chart-body"><canvas id="chartSegment"></canvas></div>
+        </div>
+
+        <div class="chart-card" data-chart="payment">
+          <div class="chart-head">
+            <h2>Payment Method Split</h2>
+            <p>How customers pay</p>
+          </div>
+
+          <div class="chart-body"><canvas id="chartPayment"></canvas></div>
+        </div>
+
+        <div class="chart-card span-2" data-chart="shipping-delivery">
+          <div class="chart-head">
+            <h2>Delivery Outcome by Shipping Mode</h2>
+            <p>Where delays, returns and cancellations cluster</p>
+          </div>
+
+          <div class="chart-body"><canvas id="chartShippingDelivery"></canvas></div>
+        </div>
+
+        <div class="chart-card" data-chart="discount-margin">
+          <div class="chart-head">
+            <h2>Discount % vs Profit Margin %</h2>
+            <p>Does discounting cost us margin</p>
+          </div>
+
+          <div class="chart-body"><canvas id="chartDiscountMargin"></canvas></div>
+        </div>
+
+        <div class="chart-card" data-chart="gender">
+          <div class="chart-head">
+            <h2>Sales by Gender</h2>
+            <p>Purchasing pattern split</p>
+          </div>
+
+          <div class="chart-body"><canvas id="chartGender"></canvas></div>
+        </div>
+
+        <div class="chart-card span-2" data-chart="cat-region-heat">
+          <div class="chart-head">
+            <h2>Category Performance by Region</h2>
+            <p>Sales concentration across the grid</p>
+          </div>
+
+          <div class="chart-body"><canvas id="chartCatRegionHeat"></canvas></div>
+        </div>
+      </section>
+
+      <!-- SPRINT 2: Product Performance Matrix -->
+      <section class="phase2-section" id="matrixSection">
+        <div class="s-head">
+          <h2>Product Performance Matrix</h2>
+          <p>Category positioning by revenue and margin quadrant</p>
+        </div>
+
+        <div id="performanceMatrix"><!-- populated by JS --></div>
+      </section>
+
+      <!-- SPRINT 2: Category Profitability Dashboard -->
+      <section class="phase2-section" id="profSection">
+        <div class="s-head">
+          <h2>Category Profitability Dashboard</h2>
+          <p>Click any column header to sort</p>
+        </div>
+
+        <div id="categoryProfitability"><!-- populated by JS --></div>
+      </section>
+
+      <!-- SPRINT 2: Discount Optimization Analytics -->
+      <section class="phase2-section" id="discSection">
+        <div class="s-head">
+          <h2>Discount Optimization Analytics</h2>
+          <p>Revenue and margin impact by discount band</p>
+        </div>
+
+        <div id="discountOptimization"><!-- populated by JS --></div>
+      </section>
+
+      <!-- SPRINT 3: Customer Retention Intelligence -->
+      <section class="phase2-section" id="retentionSection">
+        <div class="s-head">
+          <h2>Customer Retention Intelligence</h2>
+          <p>CLV, purchase frequency, repeat rate and churn analysis by segment</p>
+        </div>
+
+        <div id="retentionContent"><!-- populated by JS --></div>
+      </section>
+
+      <!-- SPRINT 3: Geographic Intelligence -->
+      <section class="phase2-section" id="geoSection">
+        <div class="s-head">
+          <h2>Geographic Intelligence</h2>
+          <p>State-level profit margin heatmap and regional growth analysis</p>
+        </div>
+
+        <div id="geoContent"><!-- populated by JS --></div>
+      </section>
+
+      <!-- SPRINT 3: Revenue &amp; Profit Forecasting -->
+      <section class="phase2-section" id="forecastSection">
+        <div class="s-head">
+          <h2>Revenue &amp; Profit Forecasting</h2>
+          <p>3-month linear trend projection with 90% confidence intervals and target comparison</p>
+        </div>
+
+        <div id="forecastContent"><!-- populated by JS --></div>
+      </section>
+
+      <!-- AI COMMAND CENTER: Executive Simulation Suite -->
+      <section class="phase2-section" id="simulationSection">
+        <div class="s-head">
+          <h2>AI Executive Simulation Suite</h2>
+          <p>Model custom scenario inputs or apply preset operational adjustments to estimate outcomes</p>
+        </div>
+
+        <div class="simulation-layout">
+            <!-- Scenario Planner (Left column) -->
+            <div class="sim-card card-planner">
+              <h3><i class="fa-solid fa-sliders"></i> Scenario Planning Simulator (What-If)</h3>
+              <div class="slider-group">
+                <label>Discount Rate Adjustment: <span id="valDiscount">0%</span></label>
+                <input type="range" id="simDiscount" min="-15" max="15" value="0" step="1">
+              </div>
+
+              <div class="slider-group">
+                <label>Return Rate Adjustment: <span id="valReturn">0%</span></label>
+                <input type="range" id="simReturn" min="-5" max="5" value="0" step="0.5">
+              </div>
+
+              <div class="slider-group">
+                <label>Order Volume Adjustment: <span id="valOrders">0%</span></label>
+                <input type="range" id="simOrders" min="-30" max="30" value="0" step="1">
+              </div>
+
+              <div class="slider-group">
+                <label>Average Order Value (AOV): <span id="valAov">0%</span></label>
+                <input type="range" id="simAov" min="-30" max="30" value="0" step="1">
+              </div>
+
+              <div class="slider-group">
+                <label>Conversion Rate Adjustment: <span id="valConversion">0%</span></label>
+                <input type="range" id="simConversion" min="-5" max="5" value="0" step="0.5">
+              </div>
+
+              <button id="resetSimulation" class="reset-btn" style="margin-top: 12px; width: 100%;">Reset Simulator</button>
+            </div>
+
+            <!-- Simulation Outputs (Middle column) -->
+            <div class="sim-card card-outputs">
+              <h3><i class="fa-solid fa-chart-pie"></i> Projected Scenario Outputs</h3>
+              <div class="sim-output-grid">
+                <div class="sim-cell">
+                  <span class="sim-cell-label">Projected Revenue</span>
+                  <span class="sim-cell-val" id="simOutRevenue">—</span>
+                  <span class="sim-cell-delta" id="simOutRevDelta"></span>
+                </div>
+                <div class="sim-cell">
+                  <span class="sim-cell-label">Projected Profit</span>
+                  <span class="sim-cell-val" id="simOutProfit">—</span>
+                  <span class="sim-cell-delta" id="simOutProfDelta"></span>
+                </div>
+                <div class="sim-cell">
+                  <span class="sim-cell-label">Projected Margin</span>
+                  <span class="sim-cell-val" id="simOutMargin">—</span>
+                  <span class="sim-cell-delta" id="simOutMarginDelta"></span>
+                </div>
+                <div class="sim-cell">
+                  <span class="sim-cell-label">Projected Orders</span>
+                  <span class="sim-cell-val" id="simOutOrders">—</span>
+                  <span class="sim-cell-delta" id="simOutOrdersDelta"></span>
+                </div>
+              </div>
+              <div class="sim-note">&#128161; Outputs are computed in real-time based on your current filters and baseline dataset metrics.</div>
+            </div>
+
+            <!-- Impact Simulator (Right column) -->
+            <div class="sim-card card-impacts">
+              <h3><i class="fa-solid fa-lightbulb"></i> Operational Impact Presets</h3>
+              <div class="impact-presets-list">
+                <div class="preset-card" onclick="applyImpactPreset('returns')">
+                  <span class="preset-title">Optimize Return Logistics</span>
+                  <span class="preset-desc">Reduce Return Rate by 1.0%</span>
+                  <span class="preset-impact" id="presetReturnVal">Estimated Recovery: ...</span>
+                </div>
+                <div class="preset-card" onclick="applyImpactPreset('aov')">
+                  <span class="preset-title">Upsell & Bundle Promotion</span>
+                  <span class="preset-desc">Increase Average Order Value (AOV) by 5.0%</span>
+                  <span class="preset-impact" id="presetAovVal">Estimated Revenue: ...</span>
+                </div>
+                <div class="preset-card" onclick="applyImpactPreset('discounts')">
+                  <span class="preset-title">C-Suite Discount Policy Capping</span>
+                  <span class="preset-desc">Reduce overall discounting by 3.0%</span>
+                  <span class="preset-impact" id="presetDiscountVal">Estimated Margin: ...</span>
+                </div>
+              </div>
+            </div>
+          </div>
+      </section>
+
+      <!-- AI COMMAND CENTER: AI Executive Copilot -->
+      <section class="phase2-section" id="copilotSection">
+        <div class="s-head">
+          <h2>AI Executive Copilot</h2>
+          <p>Ask business questions and receive data-driven boardroom recommendations and strategic summaries</p>
+        </div>
+
+        <div class="copilot-layout">
+          <!-- Chat Display Pane -->
+          <div class="copilot-chat-pane">
+            <div class="copilot-messages" id="copilotMessages">
+              <div class="copilot-msg system">
+                <div class="msg-avatar"><i class="fa-robot fa-solid"></i></div>
+
+                <div class="msg-content">
+                    <p>
+                      Welcome, Executive. I am your AI Copilot. Ask me questions about today's performance, profitability risks, regional growth, or forecasting trends. Click a preset query below or type your question.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <form class="copilot-input-area" id="copilotForm">
+                <input type="text" id="copilotInput" placeholder="Ask your AI Copilot a business question..." required>
+                <button type="submit" class="copilot-send-btn"><i class="fa-solid fa-paper-plane"></i> Ask</button>
+              </form>
+            </div>
+
+            <!-- Quick Actions Panel -->
+            <div class="copilot-presets-pane">
+              <h3><i class="fa-solid fa-circle-question"></i> Boardroom Presets</h3>
+
+              <div class="copilot-presets-grid">
+                <button class="preset-btn-chat" onclick="askCopilotPreset('Why did revenue decline?')">Why did revenue decline?</button>
+                <button class="preset-btn-chat" onclick="askCopilotPreset('Which category should receive more investment?')">Which category should receive more investment?</button>
+                <button class="preset-btn-chat" onclick="askCopilotPreset('Which states are underperforming?')">Which states are underperforming?</button>
+                <button class="preset-btn-chat" onclick="askCopilotPreset('What is driving returns?')">What is driving returns?</button>
+                <button class="preset-btn-chat" onclick="askCopilotPreset('What is the biggest profitability risk?')">What is the biggest profitability risk?</button>
+                <button class="preset-btn-chat" onclick="askCopilotPreset('Which products should be prioritized?')">Which products should be prioritized?</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      <footer class="dash-footer">
+        <p>Source: cleaned_sales_data.csv — 105,000 transactions, Jan 2024–Jun 2026. Internal use only.</p>
+      </footer>
+    </main>
+
+    <script src="js/chart.umd.min.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
