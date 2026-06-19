@@ -13,7 +13,7 @@
 
 ---
 
-##  1: Project Overview & Business Value
+##  1. Project Overview & Business Value
 
 ### Project Objective
 The **E-Commerce Sales Insights Dashboard** is an enterprise-grade decision intelligence platform. It ingests, validates, cleans, and aggregates a transaction database of **105,000+ sales records** through an automated Python ETL pipeline, rendering an interactive client-side dashboard in the browser.
@@ -41,7 +41,7 @@ This project demonstrates end-to-end analytics engineering capability:
 
 ---
 
-##  2: Dataset Schema & Columns
+##  2. Dataset Schema & Columns
 
 The underlying transaction database contains **105,075 records** and **21 columns**:
 
@@ -71,7 +71,7 @@ The underlying transaction database contains **105,075 records** and **21 column
 
 ---
 
-##  4: Data Cleaning & Preparation Pipeline
+##  3. Data Cleaning & Preparation Pipeline
 
 The Python script (`scripts/data_cleaning.py`) cleans and prepares the raw transaction dataset:
 
@@ -123,7 +123,7 @@ Applies the Interquartile Range (IQR) on Sales Amount:
 
 ---
 
-##  5: Business Performance Metrics
+##  4. Business Performance Metrics
 
 The command center tracks the following core performance metrics:
 * **Total Sales**: Cumulative net revenue (\$54,572,179.09 actual).
@@ -135,7 +135,7 @@ The command center tracks the following core performance metrics:
 
 ---
 
-##  6: Diagnostic Performance Identification
+##  5. Diagnostic Performance Identification
 
 * **Best-Selling & Most Profitable Products**: Dynamically ranked by quantity and profit contribution. **Beauty & Personal Care** achieves the highest category margin (**61.65%** on \$2.96M sales).
 * **Most Profitable Regions**: West region leads absolute sales and profits; South region reports the thinnest margins.
@@ -144,7 +144,7 @@ The command center tracks the following core performance metrics:
 
 ---
 
-##  7: Visualization Construction & Dashboard Placement
+##  6. Visualization Construction & Dashboard Placement
 
 * **KPI Header Cards (Top Strip)**: High-visibility cards displaying Sales, Profit, Margin, Orders, AOV, and Returns with YoY change badges.
 * **Bloomberg-Style Executive Filter Panel (Sub-Header)**: Structured card containing Year, Region, Category, Segment, Payment, and Shipping dropdowns with scannability icons and active summary tagging.
@@ -156,7 +156,7 @@ The command center tracks the following core performance metrics:
 
 ---
 
-##  9: Business Insights & Profit Optimization
+##  7. Business Insights & Profit Optimization
 
 * **Discount Elasticity**: Analysis indicates Electronics margins collapse when discounts exceed 15%. Capping standard discounts at 20% max recovers **$120,648.05** in direct net profit.
 * **Logistics Leakage**: Returned and cancelled orders represent a major operational leak, costing **$1.84M** in reverse logistics and handling overhead. Auditing First-Class logistics can save **$134.9K**.
@@ -164,7 +164,7 @@ The command center tracks the following core performance metrics:
 
 ---
 
-##  10: Folder Structure
+##  8. Folder Structure
 
 The GitHub-ready file tree layout:
 ```text
@@ -190,7 +190,7 @@ ecommerce-sales-insights-dashboard/
 
 ---
 
-##  11: Step-by-Step Project Execution Guide
+##  9. Step-by-Step Project Execution Guide
 
 ### Step 1: Clone the Repository
 Clone the project to your local machine and navigate into the root directory:
@@ -240,7 +240,7 @@ Open your browser and navigate to: **`http://localhost:8000`** to view the inter
 
 ---
 
-##  12: Conclusion & Strategic Impact
+##  10. Conclusion & Strategic Impact
 
 By transitioning from static reporting to automated decision intelligence, this project demonstrates how organizations can systematically isolate and resolve margin leakages. Implementing the CEO Pricing Directive (20% discount cap) and the COO Shipping Audit is projected to recover over **$250,000** in direct annual profits while driving **$1.3M+** in revenue expansion.
 
