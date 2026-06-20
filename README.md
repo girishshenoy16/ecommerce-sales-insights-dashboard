@@ -45,29 +45,29 @@ This project demonstrates end-to-end analytics engineering capability:
 
 The underlying transaction database contains **105,075 records** and **21 columns**:
 
-| Column Name | Data Type | Formula / Definition | Example Value |
-| :--- | :--- | :--- | :--- |
-| **Order ID** | String | Unique transaction identifier | `ORD-2026-100001` |
-| **Customer ID** | String | Unique customer identifier | `CUST-10255` |
-| **Customer Name** | String | Full name of the customer | `Alexandra Vance` |
-| **Gender** | Categorical | Gender demographic (Male / Female) | `Female` |
-| **Order Date** | Datetime | Date of purchase (`YYYY-MM-DD`) | `2026-04-12` |
-| **Region** | Categorical | Geographic region (East, West, Central, South) | `West` |
-| **State** | Categorical | Billing state | `California` |
-| **City** | Categorical | Billing city | `Los Angeles` |
-| **Product Category** | Categorical | Merchandise vertical (Electronics, Fashion, etc.) | `Electronics` |
-| **Product Name** | String | Product name | `SmartPhone Pro Max` |
-| **Quantity Sold** | Integer | Number of units sold | `2` |
-| **Unit Price** | Decimal | Retail price per single unit | `799.99` |
-| **Discount %** | Decimal | Applied promotion discount rate (0.00 to 0.25) | `0.10` |
-| **Sales Amount** | Decimal | Net revenue: $$\text{Sales Amount} = \text{Quantity Sold} \times \text{Unit Price} \times (1 - \text{Discount \%})$$ | `1439.98` |
-| **Cost Amount** | Decimal | Cost of goods sold: $$\text{Cost Amount} = \text{Quantity Sold} \times \text{Unit Cost}$$ | `800.00` |
-| **Profit Amount** | Decimal | Operating net profit: $$\text{Profit Amount} = \text{Sales Amount} - \text{Cost Amount}$$ | `639.98` |
-| **Profit Margin %** | Decimal | Profit percentage: $$\text{Profit Margin \%} = \frac{\text{Profit Amount}}{\text{Sales Amount}} \times 100$$ | `44.44` |
-| **Payment Method** | Categorical | Financial channel (Credit Card, PayPal, COD, etc.) | `Credit Card` |
-| **Shipping Mode** | Categorical | Shipping priority (Standard, First Class, Same Day) | `First Class` |
-| **Delivery Status** | Categorical | Fulfillment status (Delivered, Shipped, Returned, Cancelled) | `Delivered` |
-| **Customer Segment** | Categorical | Segment class (Consumer, Corporate, Home Office) | `Consumer` |
+| Column Name          | Data Type   | Formula / Definition                                                                                                 | Example Value        |
+|:---------------------|:------------|:---------------------------------------------------------------------------------------------------------------------|:---------------------|
+| **Order ID**         | String      | Unique transaction identifier                                                                                        | `ORD-2026-100001`    |
+| **Customer ID**      | String      | Unique customer identifier                                                                                           | `CUST-10255`         |
+| **Customer Name**    | String      | Full name of the customer                                                                                            | `Alexandra Vance`    |
+| **Gender**           | Categorical | Gender demographic (Male / Female)                                                                                   | `Female`             |
+| **Order Date**       | Datetime    | Date of purchase (`YYYY-MM-DD`)                                                                                      | `2026-04-12`         |
+| **Region**           | Categorical | Geographic region (East, West, Central, South)                                                                       | `West`               |
+| **State**            | Categorical | Billing state                                                                                                        | `California`         |
+| **City**             | Categorical | Billing city                                                                                                         | `Los Angeles`        |
+| **Product Category** | Categorical | Merchandise vertical (Electronics, Fashion, etc.)                                                                    | `Electronics`        |
+| **Product Name**     | String      | Product name                                                                                                         | `SmartPhone Pro Max` |
+| **Quantity Sold**    | Integer     | Number of units sold                                                                                                 | `2`                  |
+| **Unit Price**       | Decimal     | Retail price per single unit                                                                                         | `799.99`             |
+| **Discount %**       | Decimal     | Applied promotion discount rate (0.00 to 0.25)                                                                       | `0.10`               |
+| **Sales Amount**     | Decimal     | Net revenue: $$\text{Sales Amount} = \text{Quantity Sold} \times \text{Unit Price} \times (1 - \text{Discount \%})$$ | `1439.98`            |
+| **Cost Amount**      | Decimal     | Cost of goods sold: $$\text{Cost Amount} = \text{Quantity Sold} \times \text{Unit Cost}$$                            | `800.00`             |
+| **Profit Amount**    | Decimal     | Operating net profit: $$\text{Profit Amount} = \text{Sales Amount} - \text{Cost Amount}$$                            | `639.98`             |
+| **Profit Margin %**  | Decimal     | Profit percentage: $$\text{Profit Margin \%} = \frac{\text{Profit Amount}}{\text{Sales Amount}} \times 100$$         | `44.44`              |
+| **Payment Method**   | Categorical | Financial channel (Credit Card, PayPal, COD, etc.)                                                                   | `Credit Card`        |
+| **Shipping Mode**    | Categorical | Shipping priority (Standard, First Class, Same Day)                                                                  | `First Class`        |
+| **Delivery Status**  | Categorical | Fulfillment status (Delivered, Shipped, Returned, Cancelled)                                                         | `Delivered`          |
+| **Customer Segment** | Categorical | Segment class (Consumer, Corporate, Home Office)                                                                     | `Consumer`           |
 
 ---
 
